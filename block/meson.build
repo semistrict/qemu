@@ -102,6 +102,7 @@ if get_option('replication').allowed()
 endif
 block_ss.add(when: libaio, if_true: files('linux-aio.c'))
 block_ss.add(when: linux_io_uring, if_true: files('io_uring.c'))
+block_ss.add(when: loophole, if_true: files('loophole.c'))
 
 block_modules = {}
 

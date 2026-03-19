@@ -342,6 +342,8 @@ option('cloop', type: 'feature', value: 'auto',
        description: 'cloop image format support')
 option('dmg', type: 'feature', value: 'auto',
        description: 'dmg image format support')
+option('loophole_lib_dir', type: 'string', value: '',
+       description: 'path to directory containing libloophole.a (empty to disable)')
 option('qcow1', type: 'feature', value: 'auto',
        description: 'qcow1 image format support')
 option('vdi', type: 'feature', value: 'auto',

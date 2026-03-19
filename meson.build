@@ -1648,6 +1648,26 @@ if not get_option('rbd').auto() or have_block
   endif
 endif
 
+loophole = not_found
+loophole_lib_dir = get_option('loophole_lib_dir')
+if loophole_lib_dir != ''
+  libloophole = cc.find_library('loophole', dirs: loophole_lib_dir, required: true)
+  if host_os == 'darwin'
+    loophole_extra = [
+      dependency('appleframeworks', modules: ['CoreFoundation', 'Security']),
+      cc.find_library('resolv', required: true),
+      cc.find_library('pthread', required: true),
+    ]
+  else
+    loophole_extra = [
+      cc.find_library('pthread', required: true),
+      cc.find_library('resolv', required: true),
+      cc.find_library('dl', required: true),
+    ]
+  endif
+  loophole = declare_dependency(dependencies: [libloophole] + loophole_extra)
+endif
+
 glusterfs = not_found
 glusterfs_ftruncate_has_stat = false
 glusterfs_iocb_has_stat = false
