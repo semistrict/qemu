@@ -1042,8 +1042,12 @@ static int cpu_pre_load(void *opaque)
         pmu_op_start(env);
     }
 
-    g_assert(!cpu->cpreg_vmstate_indexes);
-    g_assert(!cpu->cpreg_vmstate_values);
+    /* For CPR-reboot restore, these may already be allocated. Free them
+     * so the migration load can repopulate from the saved state. */
+    g_free(cpu->cpreg_vmstate_indexes);
+    cpu->cpreg_vmstate_indexes = NULL;
+    g_free(cpu->cpreg_vmstate_values);
+    cpu->cpreg_vmstate_values = NULL;
 
     return 0;
 }

@@ -157,3 +157,9 @@ virtio_pmem_flush_done(int type) "fsync return=%d"
 virtio_gpio_start(void) "start"
 virtio_gpio_stop(void) "stop"
 virtio_gpio_set_status(uint8_t status) "0x%x"
+
+# virtio-vsock.c
+virtio_vsock_tx(uint64_t src_cid, uint32_t src_port, uint64_t dst_cid, uint32_t dst_port, uint16_t op, uint32_t len) "src=%" PRIu64 ":%" PRIu32 " dst=%" PRIu64 ":%" PRIu32 " op=%d len=%" PRIu32
+virtio_vsock_connect(uint32_t port, const char *path) "port=%" PRIu32 " path=%s"
+virtio_vsock_accept(int fd) "fd=%d"
+virtio_vsock_conn_close(uint64_t src_cid, uint32_t src_port, uint64_t dst_cid, uint32_t dst_port) "src=%" PRIu64 ":%" PRIu32 " dst=%" PRIu64 ":%" PRIu32

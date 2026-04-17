@@ -181,6 +181,16 @@ static void *hvf_cpu_thread_fn(void *arg)
             if (r == EXCP_DEBUG) {
                 cpu_handle_guest_debug(cpu);
             }
+            if (r == EXCP_HLT) {
+                /*
+                 * Guest executed WFI with no pending work.
+                 * Yield briefly so we don't busy-loop while
+                 * remaining responsive to interrupts.
+                 */
+                bql_unlock();
+                usleep(100);
+                bql_lock();
+            }
         }
     } while (!cpu->unplug || cpu_can_run(cpu));
 
